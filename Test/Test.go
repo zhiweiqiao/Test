@@ -7,8 +7,6 @@ import (
 	"strings"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
-	"github.com/emersion/go-imap"
-	"github.com/emersion/go-imap/client"
 )
 
 // Chaincode Prototype implementation
@@ -63,83 +61,6 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 		fmt.Println("Send email2 success!")
 	}
 	
-
-	/*
-	
-	//fmt.Println("Connecting to server...")
-
-	// Connect to server
-	c, err := client.DialTLS("imap.gmail.com:993", nil)
-	if err != nil {
-		fmt.Println(err)
-	}
-	//fmt.Println("Connected")
-
-	// Don't forget to logout
-	defer c.Logout()
-
-	// Login
-	if err := c.Login("hyperledgertest1@gmail.com", "George2017"); err != nil {
-		fmt.Println(err)
-	}
-	//fmt.Println("Logged in")
-
-	// Select INBOX
-	mbox, err := c.Select("INBOX", false)
-	if err != nil {
-		fmt.Println(err)
-	}
-	//fmt.Println("Flags for INBOX:", mbox.Flags)
-
-	// Get the recent 10 messages
-	from := uint32(1)
-	to := mbox.Messages
-	if mbox.Messages > 9 {
-		// We're using unsigned integers here, only substract if the result is > 0
-		from = mbox.Messages - 9
-	}
-	seqset := new(imap.SeqSet)
-	seqset.AddRange(from, to)
-
-	messages := make(chan *imap.Message, 10)
-	done := make(chan error, 1)
-	go func() {
-		done <- c.Fetch(seqset, []string{imap.EnvelopeMsgAttr}, messages)
-	}()
-
-	//fmt.Println("recent Emails:")
-
-	var flagC bool
-	var flagD  bool
-
-	flagC = false
-	flagD = false
-
-	for msg := range messages {
-		if(msg.Envelope.Subject == "Yes Confirmation from C") {
-			flagC = true
-		}
-
-		if(msg.Envelope.Subject == "Yes Confirmation from D") {
-			flagD = true
-		}
-
-		//fmt.Println(" * " + msg.Envelope.Subject)
-	}
-
-	if(flagC == true && flagD == true) {
-		fmt.Println("success")
-	}
-
-	if err := <-done; err != nil {
-		fmt.Println(err)
-	}
-
-	//fmt.Println("done 
-	*/
-	
-	
-
 	return nil, nil
 }
 
