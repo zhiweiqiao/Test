@@ -20,6 +20,11 @@ func (t *HelloWorldChaincode) Init(stub shim.ChaincodeStubInterface, function st
 
 func (t *HelloWorldChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
     fmt.Printf("HelloWorld - Invoke called with function %s!\n", function)
+    
+    if function == "init" {
+		fmt.Printf("Function is init")
+		return t.Init(stub, function, args)
+        }
 
     return nil, nil    
 }
