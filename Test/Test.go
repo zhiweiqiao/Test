@@ -7,10 +7,10 @@ import (
 	"strings"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
-	"log"
+	//"log"
 
-	"github.com/emersion/go-imap"
-	"github.com/emersion/go-imap/client"
+	//"github.com/emersion/go-imap"
+	//"github.com/emersion/go-imap/client"
 )
 
 // Chaincode Prototype implementation
@@ -64,7 +64,7 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 	} else {
 		fmt.Println("Send email2 success!")
 	}
-	
+	/*
 	log.Println("Connecting to server...")
 
 	// Connect to server
@@ -131,7 +131,7 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 		log.Fatal(err)
 	}
 
-	log.Println("Done!")
+	log.Println("Done!")*/
 	
 	
 	return nil, nil
