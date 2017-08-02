@@ -7,6 +7,8 @@ import (
 	"strings"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
+	"log"
+
 	"github.com/emersion/go-imap"
 	"github.com/emersion/go-imap/client"
 )
@@ -63,75 +65,73 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 		fmt.Println("Send email2 success!")
 	}
 	
-	
-	//fmt.Println("Connecting to server...")
+	log.Println("Connecting to server...")
 
 	// Connect to server
 	c, err := client.DialTLS("imap.gmail.com:993", nil)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	//fmt.Println("Connected")
+	log.Println("Connected")
 
 	// Don't forget to logout
 	defer c.Logout()
 
 	// Login
 	if err := c.Login("hyperledgertest1@gmail.com", "George2017"); err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	//fmt.Println("Logged in")
+	log.Println("Logged in")
+
+	// List mailboxes
+	mailboxes := make(chan *imap.MailboxInfo, 10)
+	done := make(chan error, 1)
+	go func () {
+		done <- c.List("", "*", mailboxes)
+	}()
+
+	log.Println("Mailboxes:")
+	for m := range mailboxes {
+		log.Println("* " + m.Name)
+	}
+
+	if err := <-done; err != nil {
+		log.Fatal(err)
+	}
 
 	// Select INBOX
 	mbox, err := c.Select("INBOX", false)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
-	//fmt.Println("Flags for INBOX:", mbox.Flags)
+	log.Println("Flags for INBOX:", mbox.Flags)
 
-	// Get the recent 10 messages
+	// Get the last 4 messages
 	from := uint32(1)
 	to := mbox.Messages
-	if mbox.Messages > 9 {
+	if mbox.Messages > 3 {
 		// We're using unsigned integers here, only substract if the result is > 0
-		from = mbox.Messages - 9
+		from = mbox.Messages - 3
 	}
 	seqset := new(imap.SeqSet)
 	seqset.AddRange(from, to)
 
 	messages := make(chan *imap.Message, 10)
-	done := make(chan error, 1)
+	done = make(chan error, 1)
 	go func() {
 		done <- c.Fetch(seqset, []string{imap.EnvelopeMsgAttr}, messages)
 	}()
 
-	//fmt.Println("recent Emails:")
-
-	var flagC bool
-	var flagD  bool
-
-	flagC = false
-	flagD = false
-
+	log.Println("Last 4 messages:")
 	for msg := range messages {
-		if(msg.Envelope.Subject == "Yes Confirmation from C") {
-			flagC = true
-		} else if(msg.Envelope.Subject == "Yes Confirmation from D") {
-			flagD = true
-		}
-
-		//fmt.Println(" * " + msg.Envelope.Subject)
-	}
-
-	if(flagC == true && flagD == true) {
-		fmt.Println("success")
+		log.Println("* " + msg.Envelope.Subject)
 	}
 
 	if err := <-done; err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 
-	fmt.Println("done!")
+	log.Println("Done!")
 	
 	
 	return nil, nil
