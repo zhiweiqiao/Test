@@ -17,7 +17,7 @@ type ChaincodePrototype struct {
 func (t *ChaincodePrototype) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	fmt.Printf("Init called, initializing chaincode")
 	
-	
+	return nil, nil
 }
 
 // Transaction makes payment of X units from A to B
