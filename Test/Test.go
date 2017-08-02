@@ -64,7 +64,7 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 	}
 	
 
-	
+	/*
 	
 	//fmt.Println("Connecting to server...")
 
@@ -135,8 +135,8 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 		fmt.Println(err)
 	}
 
-	//fmt.Println("done!")
-	
+	//fmt.Println("done 
+	*/
 	
 	
 
