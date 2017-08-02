@@ -87,22 +87,6 @@ func (t *ChaincodePrototype) Invoke(stub shim.ChaincodeStubInterface, function s
 	return nil, errors.New("Received unknown function invocation")
 }
 
-func (t* ChaincodePrototype) Run(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	fmt.Printf("Run called, passing through to Invoke (same function)")
-	
-	// Handle different functions
-	if function == "invoke" {
-		// Transaction makes payment of X units from A to B
-		fmt.Printf("Function is invoke")
-		return t.transaction(stub, args)
-	} else if function == "init" {
-		fmt.Printf("Function is init")
-		return t.Init(stub, function, args)
-	}
-
-	return nil, errors.New("Received unknown function invocation")
-}
-
 // Query callback representing the query of a chaincode
 func (t *ChaincodePrototype) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	fmt.Printf("Query called, determining function")
