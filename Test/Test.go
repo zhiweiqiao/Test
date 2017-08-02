@@ -144,10 +144,6 @@ func (t *ChaincodePrototype) Invoke(stub shim.ChaincodeStubInterface, function s
 	} else if function == "init" {
 		fmt.Printf("Function is init")
 		return t.Init(stub, function, args)
-	} else if function == "delete" {
-		// Deletes an entity from its state
-		fmt.Printf("Function is delete")
-		return t.delete(stub, args)
 	}
 
 	return nil, errors.New("Received unknown function invocation")
@@ -164,10 +160,6 @@ func (t* ChaincodePrototype) Run(stub shim.ChaincodeStubInterface, function stri
 	} else if function == "init" {
 		fmt.Printf("Function is init")
 		return t.Init(stub, function, args)
-	} else if function == "delete" {
-		// Deletes an entity from its state
-		fmt.Printf("Function is delete")
-		return t.delete(stub, args)
 	}
 
 	return nil, errors.New("Received unknown function invocation")
