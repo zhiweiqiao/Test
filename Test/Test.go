@@ -34,13 +34,6 @@ type ChaincodePrototype struct {
 func (t *ChaincodePrototype) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	fmt.Printf("Init called, initializing chaincode")
 	
-	return nil, nil
-}
-
-// Transaction makes payment of X units from A to B
-func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	fmt.Printf("Running invoke")
-
 	user := "hyperledgertest1@gmail.com"
 	password := "George2017"
 	host := "smtp.gmail.com:587"
@@ -78,6 +71,13 @@ func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args 
 	} else {
 		fmt.Println("Send email2 success!")
 	}
+	
+	return nil, nil
+}
+
+// Transaction makes payment of X units from A to B
+func (t *ChaincodePrototype) transaction(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+	fmt.Printf("Running invoke")
 
 	var A, B string    // Entities
 	var Aval, Bval int // Asset holdings
