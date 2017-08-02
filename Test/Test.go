@@ -17,43 +17,6 @@ type ChaincodePrototype struct {
 func (t *ChaincodePrototype) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	fmt.Printf("Init called, initializing chaincode")
 	
-	user := "hyperledgertest1@gmail.com"
-	password := "George2017"
-	host := "smtp.gmail.com:587"
-	to1 := "hyperledgertest2@gmail.com"
-	to2 := "hyperledgertest3@gmail.com"
-
-	subject := "Indentification"
-
-	body := `
-		<html>
-		<body>
-		<h1>
-		"Have you finished your work yet?"
-		</h1>
-		<button name="yes" type="submit" style="height:50px;width:100px;font-size:30px">Yes</button>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button name="no" type="submit" style="height:50px;width:100px;font-size:30px">No</button>
-		</body>
-		</html>
-		`
-	fmt.Println("Sending email")
-
-	err1 := SendToMail(user, password, host, to1, subject, body, "html")
-	if err1 != nil {
-		fmt.Println("Send email1 error!")
-		fmt.Println(err1)
-	} else {
-		fmt.Println("Send email1 success!")
-	}
-
-	err2 := SendToMail(user, password, host, to2, subject, body, "html")
-	if err2 != nil {
-		fmt.Println("Send email2 error!")
-		fmt.Println(err2)
-	} else {
-		fmt.Println("Send email2 success!")
-	}
 	
 	return nil, nil
 }
